@@ -1,12 +1,13 @@
-import { Platform, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Button, Platform, StyleSheet, Text, TextInput, View } from 'react-native'
 import React, { useState } from 'react'
 import DropDownPicker from 'react-native-dropdown-picker';
 import Input from '../components/Input';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import Datepicker from '../components/Datepicker';
 
-const AddActivity = () => {
+const AddActivity = ({navigation}) => {
     const [open, setOpen] = useState(false);
-    const [activity, setActivity] = useState(null);
+    const [activityName, setActivityName] = useState(null);
     const [items, setItems] = useState([
       {label: 'Swimming', value: 'Swimming'},
       {label: 'Weights', value: 'Weights'},
@@ -22,20 +23,36 @@ const AddActivity = () => {
     const [show, setShow] = useState(false);
     const [isDateSelected, setIsDateSelected] = useState(false);
 
-    const onChange = (event,selectedDate) => {
-        
-        setShow(Platform.OS === 'ios');
-        if (selectedDate) {
-            setDate(selectedDate);
-            setIsDateSelected(true); 
-        } else {
-            setShow(false);
-        }
+    const [activities,setActivities] = useState([])
+
+    const handleCancel = () =>{
+
     }
 
-    const showDatepicker = () => {
-        setShow(true);
-      };
+    const handleSave = (activityName,duration,date) =>{
+        const activityId = Date.now().toString();
+
+        const newActivity = {
+            activityId,
+            activityName,
+            duration,
+            date: date.toLocaleDateString('en-US', {
+                weekday: 'short', 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric'
+            })
+        };
+
+        setActivities((currentActivities) => [...currentActivities,newActivity])
+        console.log(activities)
+
+        setActivityName(null);
+        setDuration('')
+        setIsDateSelected(false)
+
+        navigation.navigate('All Activities', { activities });
+    }
 
   return (
     <View>
@@ -43,10 +60,10 @@ const AddActivity = () => {
       <DropDownPicker
       placeholder='Select An Activity'
       open={open}
-      value={activity}
+      value={activityName}
       items={items}
       setOpen={setOpen}
-      setValue={setActivity}
+      setValue={setActivityName}
       setItems={setItems}
     />
     <Input 
@@ -55,26 +72,18 @@ const AddActivity = () => {
       setItem={setDuration}
       itemError={durationError && 'Please enter a valid duration'}
     />
-    <Text>Date *</Text>
-    <TextInput style={styles.input}
-        value={isDateSelected ? date.toLocaleDateString('en-US', {
-        weekday: 'short', 
-        year: 'numeric', 
-        month: 'short', 
-        day: 'numeric', 
-      }) : ''}
-        onFocus={showDatepicker} 
-        showSoftInputOnFocus={false}
-      />
-      {show && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={date || new Date()}
-          mode="date"
-          display="inline"
-          onChange={onChange}
-        />
-      )}
+    <Datepicker 
+        date={date}
+        setDate={setDate}
+        show={show}
+        setShow={setShow}
+        isDateSelected={isDateSelected}
+        setIsDateSelected={setIsDateSelected}
+    />
+    <View style={styles.buttonsContainer}>
+    <Button title="Cancel" onPress={handleCancel}/>
+    <Button title="Save" onPress={() =>handleSave(activityName,duration,date)}/>
+    </View>
     </View>
   )
 }
@@ -91,4 +100,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginBottom: 20, 
       },
+      buttonsContainer: 
+        { flexDirection: "row" },
+        justifyContent: 'space-evenly',
 })
