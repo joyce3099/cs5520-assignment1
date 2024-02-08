@@ -6,12 +6,14 @@ import Start from './Screens/Start';
 import AllActivities from './Screens/AllActivities';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AddActivity from './Screens/AddActivity';
+import { ActivitiesProvider } from './components/ActivitiesContext';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
+    <ActivitiesProvider>
     <NavigationContainer>
      <Stack.Navigator 
        screenOptions={{
@@ -39,6 +41,7 @@ export default function App() {
       />
       </Stack.Navigator>
     </NavigationContainer>
+    </ActivitiesProvider>
   );
 }
 

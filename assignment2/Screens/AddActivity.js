@@ -4,6 +4,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import Input from '../components/Input';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Datepicker from '../components/Datepicker';
+import { useActivities } from '../components/ActivitiesContext';
 
 const AddActivity = ({navigation}) => {
     const [open, setOpen] = useState(false);
@@ -23,7 +24,7 @@ const AddActivity = ({navigation}) => {
     const [show, setShow] = useState(false);
     const [isDateSelected, setIsDateSelected] = useState(false);
 
-    const [activities,setActivities] = useState([])
+    const { activities, setActivities } = useActivities();
 
     const handleCancel = () =>{
 
@@ -44,7 +45,7 @@ const AddActivity = ({navigation}) => {
             })
         };
 
-        setActivities((currentActivities) => [...currentActivities,newActivity])
+        setActivities([...activities, newActivity]);
         console.log(activities)
 
         setActivityName(null);
