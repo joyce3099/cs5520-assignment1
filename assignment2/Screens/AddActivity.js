@@ -27,7 +27,7 @@ const AddActivity = ({navigation}) => {
     const { activities, setActivities } = useActivities();
 
     const handleCancel = () =>{
-
+        navigation.navigate('All Activities', { activities });
     }
 
     const handleSave = (activityName,duration,date) =>{

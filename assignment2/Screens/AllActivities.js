@@ -1,11 +1,11 @@
 import { Button, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect } from 'react'
 import { useActivities } from '../components/ActivitiesContext';
+import ActivityList from '../components/ActivityList';
 
 const AllActivities = ({navigation}) => {
 
   const { activities } = useActivities();
-  console.log(activities)
 
   function addHandler(){
     navigation.navigate("Add An Activity");
@@ -22,11 +22,18 @@ const AllActivities = ({navigation}) => {
   return (
     <View>
       <Text>AllActivities</Text>
-      {activities.map((activity, index) => (
-        <Text key={index} style={styles.activity}>
-          Activity: {activity.activityName}, Duration: {activity.duration}, Date: {activity.date}
-        </Text>
-      ))}
+      {activities && activities.length > 0 ? (
+        activities.map((activity, index) => (
+        <ActivityList 
+          key={index} 
+          activityName={activity.activityName}
+          duration ={activity.duration}
+          date={activity.date}>
+        </ActivityList>)
+      )) : (
+        <Text>No activities yet</Text>
+        )
+      }
       
     </View>
   )
