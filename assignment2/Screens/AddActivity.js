@@ -5,6 +5,7 @@ import Input from '../components/Input';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Datepicker from '../components/Datepicker';
 import { useActivities } from '../components/ActivitiesContext';
+import { Alert } from 'react-native';
 
 
 const AddActivity = ({navigation}) => {
@@ -29,11 +30,35 @@ const AddActivity = ({navigation}) => {
 
     const { activities, setActivities } = useActivities();
 
+    function validateInput(){
+        if (!activityName) {
+            Alert.alert("Validation", "Please select an activity.");
+            return false;
+        }
+
+        const durationNumber = parseFloat(duration);
+        if (isNaN(durationNumber) || durationNumber <= 0) {
+            Alert.alert("Validation", "Please enter a valid duration (positive number).");
+        return false;     
+        }
+
+        if (!isDateSelected) {
+            Alert.alert("Validation", "Please select a date.");
+            return false;
+          }
+
+        return true;
+
+    }
+
     const handleCancel = () =>{
         navigation.navigate('All Activities', { activities });
     }
 
     const handleSave = (activityName,duration,date) =>{
+        const isValid = validateInput();
+
+        if (isValid){
         const activityId = Date.now().toString();
 
         const isSpecial = activityName=="Running" || activityName == "Weights" || parseInt(duration) > 60;
@@ -59,10 +84,12 @@ const AddActivity = ({navigation}) => {
         setIsDateSelected(false)
 
         navigation.navigate('All Activities', { activities });
+        }
     }
 
   return (
-    <View>
+    <View style={styles.container}>
+    <View style={styles.chosenAreaContainer}>
       <Text>Activity *</Text>
       <DropDownPicker
       placeholder='Select An Activity'
@@ -87,6 +114,7 @@ const AddActivity = ({navigation}) => {
         isDateSelected={isDateSelected}
         setIsDateSelected={setIsDateSelected}
     />
+    </View>
     <View style={styles.buttonsContainer}>
     <Button title="Cancel" onPress={handleCancel}/>
     <Button title="Save" onPress={() =>handleSave(activityName,duration,date)}/>
@@ -98,6 +126,11 @@ const AddActivity = ({navigation}) => {
 export default AddActivity
 
 const styles = StyleSheet.create({
+    container:{
+      flex:6,
+    //   justifyContent: "center",
+      alignItems:"center"
+    },
     input: {
         borderWidth:1,
         borderColor: 'purple',
@@ -107,7 +140,12 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginBottom: 20, 
       },
+      chosenAreaContainer:{
+        flex:5
+      },
       buttonsContainer: 
         { flexDirection: "row" },
         justifyContent: 'space-evenly',
+        flex:1,
+        
 })
