@@ -14,21 +14,22 @@ const AllActivities = ({navigation}) => {
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Button title="Add" color="yellow" onPress={addHandler}/>
+        <Button title="Add" color="orange" onPress={addHandler}/>
       ),
     });
   }, [navigation]); 
 
   return (
-    <View>
-      <Text>AllActivities</Text>
+    <View >
       {activities && activities.length > 0 ? (
         activities.map((activity, index) => (
         <ActivityList 
           key={index} 
           activityName={activity.activityName}
           duration ={activity.duration}
-          date={activity.date}>
+          date={activity.date}
+          isSpecial={activity.isSpecial}>
+          
         </ActivityList>)
       )) : (
         <Text>No activities yet</Text>

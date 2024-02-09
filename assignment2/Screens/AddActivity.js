@@ -10,6 +10,8 @@ const AddActivity = ({navigation}) => {
     const [open, setOpen] = useState(false);
     const [activityName, setActivityName] = useState(null);
     const [items, setItems] = useState([
+      {label: 'Walking', value: 'Walking'},
+      {label: 'Running', value: 'Running'},
       {label: 'Swimming', value: 'Swimming'},
       {label: 'Weights', value: 'Weights'},
       {label: 'Yoga', value: 'Yoga'},
@@ -33,6 +35,8 @@ const AddActivity = ({navigation}) => {
     const handleSave = (activityName,duration,date) =>{
         const activityId = Date.now().toString();
 
+        const isSpecial = activityName=="Running" || activityName == "Weights" || parseInt(duration) > 60;
+
         const newActivity = {
             activityId,
             activityName,
@@ -42,7 +46,8 @@ const AddActivity = ({navigation}) => {
                 year: 'numeric', 
                 month: 'short', 
                 day: 'numeric'
-            })
+            }),
+            isSpecial
         };
 
         setActivities([...activities, newActivity]);
