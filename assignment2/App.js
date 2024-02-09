@@ -8,20 +8,9 @@ import SpecialActivities from './Screens/SpecialActivities';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AddActivity from './Screens/AddActivity';
 import { ActivitiesProvider } from './components/ActivitiesContext';
+import BottomTab from './components/BottomTab';
 
 const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
-
-function MainTabNavigator() {
-  return (
-    <Tab.Navigator>
-      <Tab.Screen name="All Activities" component={AllActivities} />
-      <Tab.Screen name="Special Activities" component={SpecialActivities} />
-    </Tab.Navigator>
-  )
-}
-  
-
 
 export default function App() {
   return (
@@ -61,6 +50,7 @@ export default function App() {
         name = "Add An Activity"
         component={AddActivity}
       />
+      
       </Stack.Navigator>
     </NavigationContainer>
     </ActivitiesProvider>
