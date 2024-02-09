@@ -24,8 +24,13 @@ console.log(navigation)
 
   return (
     <View style={styles.container}>
+     <View style={styles.activityContainer}>
       <ActivityList activities={activities} filterFn={activity => activity.isSpecial} />
-      <BottomTab navigation={navigation}/>
+      </View>
+      <View style={styles.bottomTabContainer}>
+      <BottomTab style={styles.bottomTabContainer} navigation={navigation}/>
+      </View>
+      
     </View>
   )
 }
@@ -34,7 +39,16 @@ export default SpecialActivities
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 6,
         justifyContent: 'space-between',
       },
+    
+      activityContainer:{
+        flex: 5.3,
+      },
+    
+      bottomTabContainer:{
+        flex:0.7,
+        // paddingBottom: -100, 
+      }
 })
