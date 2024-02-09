@@ -6,6 +6,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import Datepicker from '../components/Datepicker';
 import { useActivities } from '../components/ActivitiesContext';
 
+
 const AddActivity = ({navigation}) => {
     const [open, setOpen] = useState(false);
     const [activityName, setActivityName] = useState(null);
