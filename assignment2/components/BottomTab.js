@@ -6,6 +6,12 @@ import { AntDesign } from '@expo/vector-icons';
 
 const BottomTab = ({navigation}) => {
 
+    const state = navigation.getState();
+    const activeRouteName = state.routeNames[state.index];
+
+    const allActivitiesColor = activeRouteName === "All Activities" ? "orange" : "grey";
+    const specialActivitiesColor = activeRouteName === "Special Activities" ? "orange" : "grey";
+
     function handleAll(){
         navigation.navigate("All Activities");
       }
@@ -18,13 +24,13 @@ const BottomTab = ({navigation}) => {
   return (
     <View style={styles.buttonContainer}>
       <TouchableOpacity style={styles.iconButton} onPress={handleAll}>
-          <FontAwesome name="dollar" size={24} color="orange" />
-          <Text style={styles.buttonText}>All Activities</Text>
+          <FontAwesome name="dollar" size={24} color={allActivitiesColor} />
+          <Text style={[styles.buttonText,{ color: allActivitiesColor }]}>All Activities</Text>
         </TouchableOpacity>
         
         <TouchableOpacity style={styles.iconButton} onPress={handleSpecial}>
-          <AntDesign name="exclamation" size={24} color="orange" />
-          <Text style={styles.buttonText}>Special Activities</Text>
+          <AntDesign name="exclamation" size={24} color={specialActivitiesColor} />
+          <Text style={[styles.buttonText,{ color: specialActivitiesColor }]}>Special Activities</Text>
         </TouchableOpacity>
         
       </View>
@@ -49,7 +55,6 @@ const styles = StyleSheet.create({
         marginTop: 10,
       },
       buttonText: {
-        color: 'white',
         fontSize: 13,
         paddingTop: 4, 
       },

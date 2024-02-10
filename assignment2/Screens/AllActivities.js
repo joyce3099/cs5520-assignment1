@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
 
   bottomTabContainer:{
     flex:0.7,
-    // paddingBottom: -100, 
   }
 
   

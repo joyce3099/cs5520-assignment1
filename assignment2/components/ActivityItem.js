@@ -8,9 +8,11 @@ const ActivityItem = ({activityName,date,duration,isSpecial}) => {
       <Text style={styles.activityContainer}>{activityName}</Text>
       {isSpecial && <Entypo style={styles.specialSign} name="warning" size={24} color="black" />}
       <View style={styles.dateContainer}>
-        <Text >{date}</Text>
+        <Text style={styles.text}>{date}</Text>
       </View>
-      <Text style={styles.timeContainer}>{duration} min</Text>
+      <View style={styles.timeContainer}>
+        <Text style={styles.text}>{duration} min</Text>
+      </View>
     </View>
   )
 }
@@ -22,38 +24,43 @@ const styles = StyleSheet.create({
         backgroundColor:"#483D8B",
         height:50,
         flexDirection: 'row',
-        justifyContent:"space-evenly",
-        margin:16,
+        margin:15,
         paddingHorizontal: 10,
         borderRadius:6,
     },
-    
     activityContainer:{
         color:"white",
-        margin:12,
+        marginTop:12,
         fontSize:15,
         fontWeight:'bold',
-        flex:1.5
+        flex:1
     },
     specialSign:{
-        margin:12,
+        marginTop:12,
         flex:0.5,
         color:"orange"
     },
     dateContainer:{
         backgroundColor:"white",
-        width:120,
-        margin:12,
-        flex:2.5,
-        fontWeight:'bold',
+        width:140,
+        marginTop:12,
+        marginBottom:12,
+        marginLeft:1,
+        marginRight:4,
+        justifyContent:"center",
+        alignItems:"center"
     },
-    
     timeContainer:{
         backgroundColor:"white",
-        width:50,
-        margin:12,
-        flex:1,
+        width:70,
+        marginTop:12,
+        marginBottom:12,
+        justifyContent:"center",
+        alignItems:"center"
+    },
+    text:{
         fontWeight:'bold',
+        color:'#483D8B'
     }
 
 })
