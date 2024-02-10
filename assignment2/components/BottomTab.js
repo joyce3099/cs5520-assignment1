@@ -6,6 +6,7 @@ import { colors } from "../StylesHelper";
 
 const BottomTab = ({navigation}) => {
 
+    // get the current page state to set the bottom tab button color
     const state = navigation.getState();
     const activeRouteName = state.routeNames[state.index];
 

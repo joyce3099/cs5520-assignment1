@@ -8,6 +8,7 @@ const AllActivities = ({navigation}) => {
 
   const { activities } = useActivities();
 
+  // navigate to the add activity page
   function addHandler(){
     navigation.navigate("Add An Activity");
   }

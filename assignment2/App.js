@@ -21,6 +21,10 @@ export default function App() {
           cardStyle: { backgroundColor: '#E6E6FA' }, 
         }}>
       <Stack.Screen 
+        options={
+          {headerStyle:
+        {backgroundColor:colors.primary},
+        headerTintColor:colors.white}}
         name = "Start"
         component={Start}
       />

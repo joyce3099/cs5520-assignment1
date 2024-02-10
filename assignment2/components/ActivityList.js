@@ -2,12 +2,9 @@ import { FlatList,StyleSheet, Text, View } from 'react-native'
 import React from 'react';
 import ActivityItem from './ActivityItem';
 
+// filter the activities and wrap them in a flatList
 const ActivitiesList = ({ activities, filterFn }) => {
     const filteredActivities = activities.filter(filterFn);
-  
-    if (filteredActivities.length === 0) {
-      return <Text>No activities to show</Text>;
-    }
 
     const renderItem = ({ item }) => (
         <ActivityItem 
@@ -23,7 +20,6 @@ const ActivitiesList = ({ activities, filterFn }) => {
         <FlatList
           data={filteredActivities}
           renderItem={renderItem}
-        //   keyExtractor={(item, index) => index.toString()} // 提供唯一的key值
         />
       </View>
     );

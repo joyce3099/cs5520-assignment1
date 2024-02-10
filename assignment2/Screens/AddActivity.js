@@ -31,6 +31,7 @@ const AddActivity = ({navigation}) => {
 
     const { activities, setActivities } = useActivities();
 
+    // validate if the user input is valid and send alerts to user
     function validateInput(){
         if (!activityName) {
             Alert.alert("Validation", "Please select an activity.");
@@ -56,6 +57,7 @@ const AddActivity = ({navigation}) => {
         navigation.navigate('All Activities', { activities });
     }
 
+    // save the user inputs to create a new activity object and save it to the activities array
     const handleSave = (activityName,duration,date) =>{
         const isValid = validateInput();
 
@@ -78,7 +80,6 @@ const AddActivity = ({navigation}) => {
         };
 
         setActivities([...activities, newActivity]);
-        console.log(activities)
 
         setActivityName(null);
         setDuration('')

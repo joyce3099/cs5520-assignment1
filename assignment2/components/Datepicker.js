@@ -4,6 +4,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 const Datepicker = ({ date, setDate, show, setShow, isDateSelected,setIsDateSelected}) => {
 
+    // set the date picker 
     const onChange = (event,selectedDate) => {
         setShow(Platform.OS === 'ios');
         if (selectedDate) {

@@ -17,6 +17,7 @@ const Start = ({navigation}) => {
     setNumberError(false);
   }
 
+  // check if the userInput is valid and navigate to the next screen 
   const handleStart = (inputEmail, inputNumber) => {
     let isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inputEmail)
     let isPhoneNumberValid = /^\d{10}$/.test(inputNumber);
@@ -26,9 +27,7 @@ const Start = ({navigation}) => {
 
     if (isEmailValid && isPhoneNumberValid) {
       navigation.navigate("All Activities")
-    } else {
-
-    }
+    } else {}
   }
 
   return (
