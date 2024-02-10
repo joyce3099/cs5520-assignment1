@@ -141,11 +141,11 @@ const styles = StyleSheet.create({
         marginBottom: 20, 
       },
       chosenAreaContainer:{
-        flex:5
+        
       },
       buttonsContainer: 
         { flexDirection: "row" },
         justifyContent: 'space-evenly',
-        flex:1,
+        
         
 })

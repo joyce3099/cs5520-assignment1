@@ -8,6 +8,8 @@ const Start = ({navigation}) => {
   const [number,setNumber] = useState('');
   const [numberError, setNumberError] = useState(false);
 
+  const isUserTyped = email.trim() !== '' || number.trim() !== '';
+
   const handleReset = () =>{
     setEmail('');
     setNumber('');
@@ -29,8 +31,6 @@ const Start = ({navigation}) => {
     }
   }
 
-
-
   return (
     <View style={styles.container}>
       <Input 
@@ -47,8 +47,8 @@ const Start = ({navigation}) => {
       />
       
       <View style={styles.buttonsContainer}>
-        <Button title="Reset" onPress={handleReset}/>
-        <Button title="Start" onPress={() =>handleStart(email, number)}/>
+        <Button color="red" title="Reset" onPress={handleReset}/>
+        <Button title="Start" onPress={() =>handleStart(email, number)} disabled={!isUserTyped}/>
       </View>
     </View>
   )
@@ -63,6 +63,8 @@ const styles = StyleSheet.create({
     alignItems: 'center', 
   },
   buttonsContainer: 
-    { flexDirection: "row" },
-    justifyContent: 'space-evenly',
+    { flexDirection: "row" ,
+    justifyContent: 'space-around',
+    width:300
+  }
 })

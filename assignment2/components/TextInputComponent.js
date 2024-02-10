@@ -19,20 +19,19 @@ const styles = StyleSheet.create({
     label: {
       fontSize: 14, 
       marginBottom: 8, 
-      color:"purple",
+      color:"#483D8B",
+      fontWeight:'bold',
     },
     input: {
-      borderWidth:1,
-      borderColor: 'purple',
+      borderWidth:2,
+      borderColor: '#483D8B',
       borderRadius: 5,
       width: '100%',
       height: 35,
-      fontSize: 20,
-      marginBottom: 20, 
+      fontSize: 20, 
     },
     errorText: {
       color: 'black',
-      // marginTop: 2,
     },
   });
   
