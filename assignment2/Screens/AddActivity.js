@@ -6,6 +6,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import Datepicker from '../components/Datepicker';
 import { useActivities } from '../components/ActivitiesContext';
 import { Alert } from 'react-native';
+import { colors } from "../StylesHelper";
 
 
 const AddActivity = ({navigation}) => {
@@ -90,7 +91,7 @@ const AddActivity = ({navigation}) => {
   return (
     <View style={styles.container}>
     <View style={styles.chosenAreaContainer}>
-      <Text>Activity *</Text>
+      <Text style={styles.label}>Activity *</Text>
       <DropDownPicker
       placeholder='Select An Activity'
       open={open}
@@ -101,6 +102,7 @@ const AddActivity = ({navigation}) => {
       setItems={setItems}
     />
     <Input 
+      style={styles.durationContainer}
       itemText="Duration (min) *"
       item={duration}
       setItem={setDuration}
@@ -116,8 +118,8 @@ const AddActivity = ({navigation}) => {
     />
     </View>
     <View style={styles.buttonsContainer}>
-    <Button title="Cancel" onPress={handleCancel}/>
-    <Button title="Save" onPress={() =>handleSave(activityName,duration,date)}/>
+      <Button color="red" title="Cancel" onPress={handleCancel}/>
+      <Button title="Save" onPress={() =>handleSave(activityName,duration,date)}/>
     </View>
     </View>
   )
@@ -127,25 +129,28 @@ export default AddActivity
 
 const styles = StyleSheet.create({
     container:{
-      flex:6,
-    //   justifyContent: "center",
-      alignItems:"center"
+      flex:1,
+      alignItems:"center",
+      justifyContent:"space-around",
+      
     },
-    input: {
-        borderWidth:1,
-        borderColor: 'purple',
-        borderRadius: 5,
-        width: '100%',
-        height: 35,
-        fontSize: 20,
-        marginBottom: 20, 
-      },
       chosenAreaContainer:{
+        // width:350
+      },
+      durationContainer:{
         
       },
-      buttonsContainer: 
-        { flexDirection: "row" },
-        justifyContent: 'space-evenly',
+      buttonsContainer: { 
+        flexDirection: "row" ,
+        justifyContent: 'space-between',
+        width:200
+    }, 
+     label: {
+        fontSize: 14, 
+        marginBottom: 8, 
+        color:colors.primary,
+        fontWeight:'bold',
+        },
         
         
 })

@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react';
 import { Entypo } from '@expo/vector-icons';
+import { colors } from "../StylesHelper";
 
 const ActivityItem = ({activityName,date,duration,isSpecial}) => {
   return (
@@ -21,7 +22,7 @@ export default ActivityItem
 
 const styles = StyleSheet.create({
     container:{
-        backgroundColor:"#483D8B",
+        backgroundColor:colors.primary,
         height:50,
         flexDirection: 'row',
         margin:15,
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
         borderRadius:6,
     },
     activityContainer:{
-        color:"white",
+        color:colors.white,
         marginTop:12,
         fontSize:15,
         fontWeight:'bold',
@@ -38,10 +39,10 @@ const styles = StyleSheet.create({
     specialSign:{
         marginTop:12,
         flex:0.5,
-        color:"orange"
+        color:colors.orange
     },
     dateContainer:{
-        backgroundColor:"white",
+        backgroundColor:colors.white,
         width:140,
         marginTop:12,
         marginBottom:12,
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
         alignItems:"center"
     },
     timeContainer:{
-        backgroundColor:"white",
+        backgroundColor:colors.white,
         width:70,
         marginTop:12,
         marginBottom:12,
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
     },
     text:{
         fontWeight:'bold',
-        color:'#483D8B'
+        color:colors.primary
     }
 
 })

@@ -2,15 +2,15 @@ import { StyleSheet, Text, View, TouchableOpacity} from 'react-native'
 import React from 'react'
 import { FontAwesome } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
-
+import { colors } from "../StylesHelper";
 
 const BottomTab = ({navigation}) => {
 
     const state = navigation.getState();
     const activeRouteName = state.routeNames[state.index];
 
-    const allActivitiesColor = activeRouteName === "All Activities" ? "orange" : "grey";
-    const specialActivitiesColor = activeRouteName === "Special Activities" ? "orange" : "grey";
+    const allActivitiesColor = activeRouteName === "All Activities" ? colors.orange : "grey";
+    const specialActivitiesColor = activeRouteName === "Special Activities" ? colors.orange : "grey";
 
     function handleAll(){
         navigation.navigate("All Activities");
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        backgroundColor: "#483D8B",
+        backgroundColor: colors.primary,
         paddingBottom: 40, 
       },
       iconButton: {

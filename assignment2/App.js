@@ -1,14 +1,13 @@
-import { StatusBar } from 'expo-status-bar';
+
 import { StyleSheet, Text, View } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Start from './Screens/Start';
 import AllActivities from './Screens/AllActivities';
 import SpecialActivities from './Screens/SpecialActivities';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AddActivity from './Screens/AddActivity';
 import { ActivitiesProvider } from './components/ActivitiesContext';
-import BottomTab from './components/BottomTab';
+import { colors } from "./StylesHelper";
 
 const Stack = createStackNavigator();
 
@@ -25,28 +24,28 @@ export default function App() {
         name = "Start"
         component={Start}
       />
-      {/* <Stack.Screen name="MainTabs" component={MainTabNavigator} options={{ headerShown: false }} /> */}
+      
       <Stack.Screen 
         options={
           {headerStyle:
-        {backgroundColor:"#483D8B"},
-        headerTintColor:"white",}}
+        {backgroundColor:colors.primary},
+        headerTintColor:colors.white}}
         name = "All Activities"
         component={AllActivities}
       />
       <Stack.Screen 
         options={
           {headerStyle:
-        {backgroundColor:"#483D8B"},
-        headerTintColor:"white",}}
+        {backgroundColor:colors.primary},
+        headerTintColor:colors.white}}
         name = "Special Activities"
         component={SpecialActivities}
       />
       <Stack.Screen 
         options={
           {headerStyle:
-        {backgroundColor:"#483D8B"},
-        headerTintColor:"white",}}
+        {backgroundColor:colors.primary},
+        headerTintColor:colors.white}}
         name = "Add An Activity"
         component={AddActivity}
       />
