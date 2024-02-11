@@ -22,13 +22,10 @@ export default function App() {
         }}>
       <Stack.Screen 
         options={
-          {headerStyle:
-        {backgroundColor:colors.primary},
-        headerTintColor:colors.white}}
+          {headerShown:false}}
         name = "Start"
         component={Start}
       />
-      
       <Stack.Screen 
         options={
           {headerStyle:

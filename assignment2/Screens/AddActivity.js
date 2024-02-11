@@ -1,8 +1,7 @@
-import { Button, Platform, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Button, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import DropDownPicker from 'react-native-dropdown-picker';
 import Input from '../components/Input';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import Datepicker from '../components/Datepicker';
 import { useActivities } from '../components/ActivitiesContext';
 import { Alert } from 'react-native';
@@ -41,7 +40,7 @@ const AddActivity = ({navigation}) => {
         const durationNumber = parseFloat(duration);
         if (isNaN(durationNumber) || durationNumber <= 0) {
             Alert.alert("Validation", "Please enter a valid duration (positive number).");
-        return false;     
+            return false;     
         }
 
         if (!isDateSelected) {
@@ -103,7 +102,6 @@ const AddActivity = ({navigation}) => {
       setItems={setItems}
     />
     <Input 
-      style={styles.durationContainer}
       itemText="Duration (min) *"
       item={duration}
       setItem={setDuration}
@@ -136,10 +134,7 @@ const styles = StyleSheet.create({
       
     },
       chosenAreaContainer:{
-        // width:350
-      },
-      durationContainer:{
-        
+        width:"99%"
       },
       buttonsContainer: { 
         flexDirection: "row" ,

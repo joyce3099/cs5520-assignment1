@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
       borderWidth:2,
       borderColor: colors.primary,
       borderRadius: 5,
-      width: '100%',
+      // width: '100%',
       height: 35,
       fontSize: 20, 
     },

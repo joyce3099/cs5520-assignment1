@@ -63,5 +63,4 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
         color:colors.primary
     }
-
 })
