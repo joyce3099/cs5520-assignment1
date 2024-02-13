@@ -101,7 +101,7 @@ const AddActivity = ({navigation}) => {
       setValue={setActivityName}
       setItems={setItems}
     />
-    <Input 
+    <Input style={styles.chosenAreaContainer}
       itemText="Duration (min) *"
       item={duration}
       setItem={setDuration}
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
       
     },
       chosenAreaContainer:{
-        width:"99%"
+        width:"85%"
       },
       buttonsContainer: { 
         flexDirection: "row" ,

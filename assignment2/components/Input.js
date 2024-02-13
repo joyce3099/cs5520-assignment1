@@ -23,7 +23,7 @@ const Input = ({
 
 const styles = StyleSheet.create({
   container:{
-    width:390,
+    width:'98%',
     justifyContent:"space-around",
     height:90
   }
