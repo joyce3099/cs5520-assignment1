@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import DropDownPicker from 'react-native-dropdown-picker';
 import Input from '../components/Input';
 import Datepicker from '../components/Datepicker';
-import { useActivities } from '../components/ActivitiesContext';
 import { Alert } from 'react-native';
 import { colors } from "../StylesHelper";
 import { deleteFromDB, writeToDB } from '../firebase-files/firestoreHelper';
@@ -40,8 +39,28 @@ const EditActivity = ({route,navigation}) => {
     const [isDateSelected, setIsDateSelected] = useState(false);
 
     function deleteHandler(deletedId){
-      deleteFromDB(deletedId);
-      navigation.navigate('All Activities');
+      Alert.alert(
+        "Delete",
+        "Are you sure you want to delete this item?",
+        [
+          {
+            text:"No",
+            onPress: () => console.log("No Pressed"),
+            style: "No"
+          },
+          {
+            text:"Yes",
+            onPress: () => {
+              deleteFromDB(deletedId).then(()=>{
+                navigation.navigate('All Activities');
+              }).catch((err)=>{
+                console.error("error",err)
+              });
+            },
+          },
+        ],
+        { cancelable: false }
+      )   
     }
 
     useEffect(() => {
@@ -111,18 +130,18 @@ const EditActivity = ({route,navigation}) => {
         navigation.navigate('All Activities');
     }
 
-    // save the user inputs to create a new activity object and save it to the activities array
+    // save the user inputs to update the activity object and save it to the database
     const handleSave = async (activityName,duration,date) =>{
         const isValid = validateInput();
 
         if (isValid){
-        const {documentId} = route.params;
-        const db = getFirestore();
-        const activityRef = doc(db, "activities", documentId);
-        
-        const isSpecial = activityName=="Running" || activityName == "Weights" || parseInt(duration) > 60;
+          const {documentId} = route.params;
+          const db = getFirestore();
+          const activityRef = doc(db, "activities", documentId);
+          
+          const isSpecial = activityName=="Running" || activityName == "Weights" || parseInt(duration) > 60;
 
-        const updatedActivity = {
+          const updatedActivity = {
             activityName,
             duration,
             date: date.toLocaleDateString('en-US', {
@@ -134,17 +153,30 @@ const EditActivity = ({route,navigation}) => {
             isSpecial
         };
 
-       try{
-          await updateDoc(activityRef,updatedActivity);
-          Alert.alert("Success", "Activity updated successfully");
-          setActivityName(null);
-          setDuration('')
-          setIsDateSelected(false)
-          navigation.navigate('All Activities');
-
-       } catch(e){
-          console.error("Error updating document: ", error);
-       }
+          Alert.alert(
+            "Important",
+            "Are you sure you want to save this changes?",
+            [
+              {
+                text:"No",
+                onPress: () => console.log("No Pressed"),
+                style: "No"
+              },
+              {
+                text:"Yes",
+                onPress: async () => {
+                  await updateDoc(activityRef,updatedActivity);
+                  Alert.alert("Success", "Activity updated successfully");
+                  setActivityName(null);
+                  setDuration('')
+                  setIsDateSelected(false)
+                  navigation.navigate('All Activities');
+                },
+              },
+            ],
+            { cancelable: false }
+          ) 
+        
       }
     }
 
