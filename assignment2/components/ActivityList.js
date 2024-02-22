@@ -3,7 +3,7 @@ import React from 'react';
 import ActivityItem from './ActivityItem';
 
 // filter the activities and wrap them in a flatList
-const ActivityList = ({ activities, filterFn,navigation }) => {
+const ActivityList = ({ activities, filterFn,navigation,origin }) => {
     const filteredActivities = activities.filter(filterFn);
 
     const renderItem = ({ item }) => (
@@ -14,6 +14,7 @@ const ActivityList = ({ activities, filterFn,navigation }) => {
           date={item.date}
           isSpecial={item.isSpecial}
           navigation={navigation}
+          origin={origin}
         />
       );
   

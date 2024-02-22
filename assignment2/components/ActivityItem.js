@@ -3,10 +3,10 @@ import React from 'react';
 import { Entypo } from '@expo/vector-icons';
 import { colors } from "../StylesHelper";
 
-const ActivityItem = ({activityId,activityName,date,duration,isSpecial,navigation}) => {
+const ActivityItem = ({activityId,activityName,date,duration,isSpecial,navigation,origin}) => {
   
   function activityPressHandler() {
-    navigation.navigate("Edit", { documentId: activityId });
+    navigation.navigate("Edit", { documentId: activityId, origin: origin});
   }
 
   return (

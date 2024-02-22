@@ -41,7 +41,7 @@ const SpecialActivities = ({navigation}) => {
   return (
     <View style={styles.container}>
      <View style={styles.activityContainer}>
-      <ActivityList activities={activities} filterFn={activity => activity.isSpecial} navigation={navigation}/>
+      <ActivityList activities={activities} filterFn={activity => activity.isSpecial} navigation={navigation} origin="SpecialActivities"/>
       </View>
       <View style={styles.bottomTabContainer}>
       <BottomTab style={styles.bottomTabContainer} navigation={navigation}/>

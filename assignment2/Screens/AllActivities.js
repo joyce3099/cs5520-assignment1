@@ -42,7 +42,7 @@ const AllActivities = ({navigation}) => {
   return (
     <View style={styles.container}>
      <View style={styles.activityContainer}>
-      <ActivityList activities={activities} filterFn={() => true} navigation={navigation}/>
+      <ActivityList activities={activities} filterFn={() => true} navigation={navigation} origin="AllActivities"/>
       </View>
       <View style={styles.bottomTabContainer}>
       <BottomTab style={styles.bottomTabContainer} navigation={navigation}/>

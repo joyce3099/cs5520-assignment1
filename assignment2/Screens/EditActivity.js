@@ -14,7 +14,9 @@ import PressableButton from '../components/PressableButton';
 import Checkbox from 'expo-checkbox';
 
 const EditActivity = ({route,navigation}) => {
-    const {documentId} = route.params;
+    const {documentId,origin} = route.params;
+    console.log(route.params);
+
     const db = getFirestore();
 
     const [activity, setActivity] = useState(null);
@@ -138,7 +140,11 @@ const EditActivity = ({route,navigation}) => {
     }
 
     const handleCancel = () =>{
-        navigation.navigate('All Activities');
+        if (origin === 'AllActivities') {
+            navigation.navigate('All Activities');
+        } else if (origin === 'SpecialActivities') {
+            navigation.navigate('Special Activities');
+        }
     }
 
     // save the user inputs to update the activity object and save it to the database
@@ -197,7 +203,11 @@ const EditActivity = ({route,navigation}) => {
                   setActivityName(null);
                   setDuration('')
                   setIsDateSelected(false)
-                  navigation.navigate('All Activities');
+                  if (origin === 'AllActivities') {
+                    navigation.navigate('All Activities');
+                  } else if (origin === 'SpecialActivities') {
+                    navigation.navigate('Special Activities');
+                }
                 },
               },
             ],
