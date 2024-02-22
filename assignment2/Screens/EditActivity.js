@@ -8,13 +8,13 @@ import { colors } from "../StylesHelper";
 import { deleteFromDB, writeToDB } from '../firebase-files/firestoreHelper';
 import { doc, getDoc, getFirestore, onSnapshot, updateDoc } from 'firebase/firestore';
 import {database} from "../firebase-files/firebaseSetup"
-import moment, { updateLocale } from 'moment';
+import moment from 'moment';
 import { FontAwesome } from '@expo/vector-icons';
 import PressableButton from '../components/PressableButton';
+import Checkbox from 'expo-checkbox';
 
 const EditActivity = ({route,navigation}) => {
     const {documentId} = route.params;
-    
     const db = getFirestore();
 
     const [activity, setActivity] = useState(null);
@@ -37,6 +37,8 @@ const EditActivity = ({route,navigation}) => {
     const [date, setDate] = useState(new Date());
     const [show, setShow] = useState(false);
     const [isDateSelected, setIsDateSelected] = useState(false);
+
+    const [isChecked, setChecked] = useState(false);
 
     function deleteHandler(deletedId){
       Alert.alert(
@@ -78,8 +80,6 @@ const EditActivity = ({route,navigation}) => {
         const db = getFirestore();
         const docRef = doc(db, "activities", documentId);
         const docSnap = await getDoc(docRef);
-
-        console.log("Document data:", docSnap.data());
 
         if (docSnap.exists()) {
             console.log("Document data:", docSnap.data());
@@ -139,7 +139,7 @@ const EditActivity = ({route,navigation}) => {
           const db = getFirestore();
           const activityRef = doc(db, "activities", documentId);
           
-          const isSpecial = activityName=="Running" || activityName == "Weights" || parseInt(duration) > 60;
+          const isSpecial = (activityName == "Running" || activityName == "Weights" || parseInt(duration) > 60) && isChecked == false;
 
           const updatedActivity = {
             activityName,
@@ -176,7 +176,6 @@ const EditActivity = ({route,navigation}) => {
             ],
             { cancelable: false }
           ) 
-        
       }
     }
 
@@ -208,6 +207,20 @@ const EditActivity = ({route,navigation}) => {
         setIsDateSelected={setIsDateSelected}
     />
     </View>
+    {activity && activity.isSpecial && (
+    <View style={styles.checkboxContainer}>
+    <Text style={styles.checkboxText}>This item is marked as special. Select the checkbox if you would like to approve it.</Text>
+    <Checkbox
+        style={styles.checkbox}
+        value={isChecked}
+        onValueChange={(newValue) => {
+        setChecked(newValue);
+        // updateActivityIsSpecial(documentId, !newValue);
+      }}
+        color={isChecked ? '#4630EB' : undefined}
+      />  
+    </View>
+    )}
     <View style={styles.buttonsContainer}>
       <Button color="red" title="Cancel" onPress={handleCancel}/>
       <Button title="Save" onPress={() =>handleSave(activityName,duration,date)}/>
@@ -239,6 +252,19 @@ const styles = StyleSheet.create({
         color:colors.primary,
         fontWeight:'bold',
         },
+      checkboxContainer:{
+        flexDirection: 'row',
+        alignItems: 'center',
+        width:300
+      },
+      checkbox: {
+        margin: 8,
+      },
+      checkboxText:{
+        fontSize:14,
+        color:colors.primary,
+        fontWeight:"bold"
+      }
         
         
 })

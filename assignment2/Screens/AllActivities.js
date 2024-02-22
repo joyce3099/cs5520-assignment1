@@ -1,6 +1,5 @@
 import { Button, Pressable, StyleSheet, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
-// import { useActivities } from '../components/ActivitiesContext';
 import ActivityList from '../components/ActivityList';
 import BottomTab from '../components/BottomTab';
 import { collection,onSnapshot } from "firebase/firestore";

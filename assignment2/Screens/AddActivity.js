@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import DropDownPicker from 'react-native-dropdown-picker';
 import Input from '../components/Input';
 import Datepicker from '../components/Datepicker';
-import { useActivities } from '../components/ActivitiesContext';
 import { Alert } from 'react-native';
 import { colors } from "../StylesHelper";
 import { writeToDB } from '../firebase-files/firestoreHelper';
@@ -31,7 +30,9 @@ const AddActivity = ({navigation}) => {
     const [show, setShow] = useState(false);
     const [isDateSelected, setIsDateSelected] = useState(false);
 
-    const { activities, setActivities } = useActivities();
+    const [activities, setActivities] = useState([])
+
+    // const { activities, setActivities } = useActivities();
     
 
     // validate if the user input is valid and send alerts to user
@@ -57,7 +58,7 @@ const AddActivity = ({navigation}) => {
     }
 
     const handleCancel = () =>{
-        navigation.navigate('All Activities', { activities });
+        navigation.navigate('All Activities');
     }
 
     // save the user inputs to create a new activity object and save it to the activities array
@@ -89,7 +90,7 @@ const AddActivity = ({navigation}) => {
         setDuration('')
         setIsDateSelected(false)
 
-        navigation.navigate('All Activities', { activities });
+        navigation.navigate('All Activities');
         }
     }
 
@@ -151,7 +152,5 @@ const styles = StyleSheet.create({
         marginBottom: 8, 
         color:colors.primary,
         fontWeight:'bold',
-        },
-        
-        
+        },  
 })

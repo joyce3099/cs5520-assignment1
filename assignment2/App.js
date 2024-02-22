@@ -9,8 +9,7 @@ import AddActivity from './Screens/AddActivity';
 import EditActivity from "./Screens/EditActivity"
 import { ActivitiesProvider } from './components/ActivitiesContext';
 import { colors } from "./StylesHelper";
-import ActivityItem from './components/ActivityItem';
-import ActivityList from './components/ActivityList';
+
 
 const Stack = createStackNavigator();
 
