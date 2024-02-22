@@ -15,7 +15,7 @@ import Checkbox from 'expo-checkbox';
 
 const EditActivity = ({route,navigation}) => {
     const {documentId,origin} = route.params;
-    console.log(route.params);
+    console.log(route.params.origin)
 
     const db = getFirestore();
 
@@ -58,7 +58,11 @@ const EditActivity = ({route,navigation}) => {
             text:"Yes",
             onPress: () => {
               deleteFromDB(deletedId).then(()=>{
-                navigation.navigate('All Activities');
+                if (origin === 'AllActivities') {
+                  navigation.navigate('All Activities');
+              } else if (origin === 'SpecialActivities') {
+                  navigation.navigate('Special Activities');
+              }
               }).catch((err)=>{
                 console.error("error",err)
               });
@@ -108,7 +112,6 @@ const EditActivity = ({route,navigation}) => {
             } else {
               console.log("Error: Invalid date format.");
             }
-            console.log(docSnap.data().date) 
             setIsDateSelected(true);
             } else {
                 console.log("No such document!");

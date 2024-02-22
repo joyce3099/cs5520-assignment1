@@ -5,7 +5,6 @@ import BottomTab from '../components/BottomTab';
 import { collection,onSnapshot } from "firebase/firestore";
 import {database} from "../firebase-files/firebaseSetup"
 
-
 const AllActivities = ({navigation}) => {
 
   const [activities, setActivities] = useState([]);
