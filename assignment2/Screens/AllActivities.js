@@ -4,6 +4,8 @@ import ActivityList from '../components/ActivityList';
 import BottomTab from '../components/BottomTab';
 import { collection,onSnapshot } from "firebase/firestore";
 import {database} from "../firebase-files/firebaseSetup"
+import { FontAwesome6 } from '@expo/vector-icons';
+import PressableButton from '../components/PressableButton';
 
 const AllActivities = ({navigation}) => {
 
@@ -33,7 +35,10 @@ const AllActivities = ({navigation}) => {
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Button title="+" color="white" onPress={addHandler}/>
+        // <Button title="+" color="white" onPress={addHandler}/>
+        <Pressable style={styles.addButton} onPress={addHandler}>
+          <FontAwesome6 name="add" size={24} color="white" />
+        </Pressable>
       ),
     });
   }, [navigation]); 
@@ -65,6 +70,9 @@ const styles = StyleSheet.create({
 
   bottomTabContainer:{
     flex:0.7,
+  },
+  addButton:{
+    marginRight:30
   }
 
   
