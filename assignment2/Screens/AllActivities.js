@@ -16,7 +16,7 @@ const AllActivities = ({navigation}) => {
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Button title="Add" color="orange" onPress={addHandler}/>
+        <Button title="+" color="white" onPress={addHandler}/>
       ),
     });
   }, [navigation]); 
