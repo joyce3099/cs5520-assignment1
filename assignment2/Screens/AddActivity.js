@@ -1,14 +1,17 @@
 import { Button, StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DropDownPicker from 'react-native-dropdown-picker';
 import Input from '../components/Input';
 import Datepicker from '../components/Datepicker';
 import { useActivities } from '../components/ActivitiesContext';
 import { Alert } from 'react-native';
 import { colors } from "../StylesHelper";
-
+import { writeToDB } from '../firebase-files/firestoreHelper';
+import { collection,onSnapshot } from "firebase/firestore";
+import {database} from "../firebase-files/firebaseSetup"
 
 const AddActivity = ({navigation}) => {
+
     const [open, setOpen] = useState(false);
     const [activityName, setActivityName] = useState(null);
     const [items, setItems] = useState([
@@ -29,6 +32,22 @@ const AddActivity = ({navigation}) => {
     const [isDateSelected, setIsDateSelected] = useState(false);
 
     const { activities, setActivities } = useActivities();
+
+    useEffect(()=>{
+      // set up a listener to get realtime data from firestore - only after the first render
+      onSnapshot(collection(database,"activities"),(querySnapshot)=>{
+        if (querySnapshot.empty){
+          Alert.alert("You need to add something");
+          return;
+        }
+        let newArray = []
+        // look through this querySnapshot
+        querySnapshot.forEach((doc) => {
+          newArray.push({...doc.data(),id:doc.id});
+      });
+      setActivities(newArray);
+      })
+    },[])
 
     // validate if the user input is valid and send alerts to user
     function validateInput(){
@@ -79,6 +98,7 @@ const AddActivity = ({navigation}) => {
         };
 
         setActivities([...activities, newActivity]);
+        writeToDB(newActivity);
 
         setActivityName(null);
         setDuration('')
