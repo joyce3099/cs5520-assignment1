@@ -8,3 +8,12 @@ export async function writeToDB(data){
     console.log("error",e)
 }
 }
+
+export async function deleteFromDB(deletedId) {
+    try {
+      await deleteDoc(doc(database, "activities", deletedId));
+    } catch (err) {
+      console.log(err);
+    }
+  }
+

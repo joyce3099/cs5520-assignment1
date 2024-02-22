@@ -1,11 +1,18 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react';
 import { Entypo } from '@expo/vector-icons';
 import { colors } from "../StylesHelper";
 
-const ActivityItem = ({activityName,date,duration,isSpecial}) => {
+const ActivityItem = ({activityId,activityName,date,duration,isSpecial,navigation}) => {
+  
+  function activityPressHandler() {
+    navigation.navigate("Edit", { documentId: activityId });
+  }
+
   return (
-    <View style={styles.container}>
+    <View >
+    <Pressable style={() => {return [styles.container];}}
+      onPress={activityPressHandler}>
       <Text style={styles.activityContainer}>{activityName}</Text>
       {isSpecial && <Entypo style={styles.specialSign} name="warning" size={24} color="black" />}
       <View style={styles.dateContainer}>
@@ -14,6 +21,7 @@ const ActivityItem = ({activityName,date,duration,isSpecial}) => {
       <View style={styles.timeContainer}>
         <Text style={styles.text}>{duration} min</Text>
       </View>
+      </Pressable>
     </View>
   )
 }

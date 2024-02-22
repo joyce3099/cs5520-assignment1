@@ -6,8 +6,11 @@ import Start from './Screens/Start';
 import AllActivities from './Screens/AllActivities';
 import SpecialActivities from './Screens/SpecialActivities';
 import AddActivity from './Screens/AddActivity';
+import EditActivity from "./Screens/EditActivity"
 import { ActivitiesProvider } from './components/ActivitiesContext';
 import { colors } from "./StylesHelper";
+import ActivityItem from './components/ActivityItem';
+import ActivityList from './components/ActivityList';
 
 const Stack = createStackNavigator();
 
@@ -49,6 +52,14 @@ export default function App() {
         headerTintColor:colors.white}}
         name = "Add An Activity"
         component={AddActivity}
+      />
+      <Stack.Screen 
+        options={
+          {headerStyle:
+        {backgroundColor:colors.primary},
+        headerTintColor:colors.white}}
+        name = "Edit"
+        component={EditActivity}
       />
       
       </Stack.Navigator>

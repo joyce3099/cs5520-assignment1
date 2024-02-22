@@ -1,4 +1,4 @@
-import { Button, StyleSheet, View } from 'react-native'
+import { Button, Pressable, StyleSheet, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 // import { useActivities } from '../components/ActivitiesContext';
 import ActivityList from '../components/ActivityList';
@@ -9,7 +9,6 @@ import {database} from "../firebase-files/firebaseSetup"
 
 const AllActivities = ({navigation}) => {
 
-  // const { activities } = useActivities();
   const [activities, setActivities] = useState([]);
 
   useEffect(()=>{
@@ -44,7 +43,7 @@ const AllActivities = ({navigation}) => {
   return (
     <View style={styles.container}>
      <View style={styles.activityContainer}>
-      <ActivityList activities={activities} filterFn={() => true} />
+      <ActivityList activities={activities} filterFn={() => true} navigation={navigation}/>
       </View>
       <View style={styles.bottomTabContainer}>
       <BottomTab style={styles.bottomTabContainer} navigation={navigation}/>

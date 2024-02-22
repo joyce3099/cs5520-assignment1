@@ -6,11 +6,19 @@ import Datepicker from '../components/Datepicker';
 import { useActivities } from '../components/ActivitiesContext';
 import { Alert } from 'react-native';
 import { colors } from "../StylesHelper";
-import { writeToDB } from '../firebase-files/firestoreHelper';
-import { collection,onSnapshot } from "firebase/firestore";
+import { deleteFromDB, writeToDB } from '../firebase-files/firestoreHelper';
+import { doc, getDoc, getFirestore, onSnapshot, updateDoc } from 'firebase/firestore';
 import {database} from "../firebase-files/firebaseSetup"
+import moment, { updateLocale } from 'moment';
+import { FontAwesome } from '@expo/vector-icons';
+import PressableButton from '../components/PressableButton';
 
-const AddActivity = ({navigation}) => {
+const EditActivity = ({route,navigation}) => {
+    const {documentId} = route.params;
+    
+    const db = getFirestore();
+
+    const [activity, setActivity] = useState(null);
 
     const [open, setOpen] = useState(false);
     const [activityName, setActivityName] = useState(null);
@@ -31,8 +39,52 @@ const AddActivity = ({navigation}) => {
     const [show, setShow] = useState(false);
     const [isDateSelected, setIsDateSelected] = useState(false);
 
-    const { activities, setActivities } = useActivities();
-    
+    function deleteHandler(deletedId){
+      deleteFromDB(deletedId);
+      navigation.navigate('All Activities');
+    }
+
+    useEffect(() => {
+      navigation.setOptions({
+        headerRight: () => (
+          <PressableButton onPressFunction={() => deleteHandler(documentId)}>
+          <FontAwesome name="trash-o" size={24} color="white" />
+          </PressableButton>
+        ),
+      });
+    }); 
+
+    useEffect(()=>{
+      const fetchActivity = async () => {
+        const db = getFirestore();
+        const docRef = doc(db, "activities", documentId);
+        const docSnap = await getDoc(docRef);
+
+        console.log("Document data:", docSnap.data());
+
+        if (docSnap.exists()) {
+            console.log("Document data:", docSnap.data());
+            setActivity({ id: docSnap.id, ...docSnap.data() });
+            setActivityName(docSnap.data().activityName);
+            setDuration(docSnap.data().duration);
+            
+            const dateStr = docSnap.data().date;
+            const parsedDate = moment(dateStr, "ddd, MMM D, YYYY").toDate();
+
+            if (moment(parsedDate).isValid()) {
+              setDate(parsedDate);
+              setIsDateSelected(true);
+            } else {
+              console.log("Error: Invalid date format.");
+            }
+            console.log(docSnap.data().date) 
+            setIsDateSelected(true);
+            } else {
+                console.log("No such document!");
+            }
+    };
+        fetchActivity();
+        }, [documentId])
 
     // validate if the user input is valid and send alerts to user
     function validateInput(){
@@ -51,26 +103,26 @@ const AddActivity = ({navigation}) => {
             Alert.alert("Validation", "Please select a date.");
             return false;
           }
-
         return true;
 
     }
 
     const handleCancel = () =>{
-        navigation.navigate('All Activities', { activities });
+        navigation.navigate('All Activities');
     }
 
     // save the user inputs to create a new activity object and save it to the activities array
-    const handleSave = (activityName,duration,date) =>{
+    const handleSave = async (activityName,duration,date) =>{
         const isValid = validateInput();
 
         if (isValid){
-        const activityId = Date.now().toString();
-
+        const {documentId} = route.params;
+        const db = getFirestore();
+        const activityRef = doc(db, "activities", documentId);
+        
         const isSpecial = activityName=="Running" || activityName == "Weights" || parseInt(duration) > 60;
 
-        const newActivity = {
-            activityId,
+        const updatedActivity = {
             activityName,
             duration,
             date: date.toLocaleDateString('en-US', {
@@ -82,15 +134,18 @@ const AddActivity = ({navigation}) => {
             isSpecial
         };
 
-        setActivities([...activities, newActivity]);
-        writeToDB(newActivity);
+       try{
+          await updateDoc(activityRef,updatedActivity);
+          Alert.alert("Success", "Activity updated successfully");
+          setActivityName(null);
+          setDuration('')
+          setIsDateSelected(false)
+          navigation.navigate('All Activities');
 
-        setActivityName(null);
-        setDuration('')
-        setIsDateSelected(false)
-
-        navigation.navigate('All Activities', { activities });
-        }
+       } catch(e){
+          console.error("Error updating document: ", error);
+       }
+      }
     }
 
   return (
@@ -98,7 +153,7 @@ const AddActivity = ({navigation}) => {
     <View style={styles.chosenAreaContainer}>
       <Text style={styles.label}>Activity *</Text>
       <DropDownPicker
-      placeholder='Select An Activity'
+      placeholder={activityName}
       open={open}
       value={activityName}
       items={items}
@@ -129,7 +184,7 @@ const AddActivity = ({navigation}) => {
   )
 }
 
-export default AddActivity
+export default EditActivity
 
 const styles = StyleSheet.create({
     container:{
