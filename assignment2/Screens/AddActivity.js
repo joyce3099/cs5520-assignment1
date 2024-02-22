@@ -8,6 +8,7 @@ import { colors } from "../StylesHelper";
 import { writeToDB } from '../firebase-files/firestoreHelper';
 import { collection,onSnapshot } from "firebase/firestore";
 import {database} from "../firebase-files/firebaseSetup"
+import PressableButton from '../components/PressableButton';
 
 const AddActivity = ({navigation}) => {
 
@@ -124,8 +125,12 @@ const AddActivity = ({navigation}) => {
     />
     </View>
     <View style={styles.buttonsContainer}>
-      <Button color="red" title="Cancel" onPress={handleCancel}/>
-      <Button title="Save" onPress={() =>handleSave(activityName,duration,date)}/>
+    <PressableButton customStyle={styles.cancelButton} onPressFunction={handleCancel}>
+      <Text style={styles.buttonText}>Cancel</Text>
+    </PressableButton>
+    <PressableButton customStyle={styles.saveButton} onPressFunction={() =>handleSave(activityName,duration,date)}>
+      <Text style={styles.buttonText}>Save</Text>
+    </PressableButton>
     </View>
     </View>
   )
@@ -146,7 +151,7 @@ const styles = StyleSheet.create({
       buttonsContainer: { 
         flexDirection: "row" ,
         justifyContent: 'space-between',
-        width:200
+        width:280
     }, 
      label: {
         fontSize: 14, 
@@ -154,4 +159,15 @@ const styles = StyleSheet.create({
         color:colors.primary,
         fontWeight:'bold',
         },  
+        buttonText:{
+          fontSize:18,
+          color:"white"
+        },
+        cancelButton:{
+          backgroundColor: "#DB7093",
+          
+        },
+        saveButton:{
+          backgroundColor:colors.primary,
+        },
 })

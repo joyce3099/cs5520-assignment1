@@ -77,7 +77,7 @@ const EditActivity = ({route,navigation}) => {
       navigation.setOptions({
         headerRight: () => (
           <PressableButton onPressFunction={() => deleteHandler(documentId)}>
-          <FontAwesome name="trash-o" size={24} color="white" />
+            <FontAwesome name="trash-o" size={24} color="white" />
           </PressableButton>
         ),
       });
@@ -97,14 +97,6 @@ const EditActivity = ({route,navigation}) => {
             
             const dateStr = docSnap.data().date;
             const parsedDate = moment(dateStr, "ddd, MMM D, YYYY").toDate();
-
-            // set initial activity to compare
-            // setInitialActivity({
-            //   activityName: docSnap.data.activityName,
-            //   duration: docSnap.data.duration,
-            //   date: docSnap.data.date,
-            //   isSpecial: docSnap.data.isSpecial
-            // });
 
             if (moment(parsedDate).isValid()) {
               setDate(parsedDate);
@@ -155,22 +147,6 @@ const EditActivity = ({route,navigation}) => {
         const isValid = validateInput();
 
         if (isValid){
-          // const currentDate = date.toLocaleDateString('en-US', {
-          //   weekday: 'short', 
-          //   year: 'numeric', 
-          //   month: 'short', 
-          //   day: 'numeric'
-          // });
-      
-          // if (activityName === initialActivity.activityName &&
-          //     duration === initialActivity.duration &&
-          //     currentDate === initialActivity.date &&
-          //     isSpecial === initialActivity.isSpecial
-          //     ) {
-          //   Alert.alert("Notice", "No changes were made.");
-          //   return;
-          // }
-
           const {documentId} = route.params;
           const db = getFirestore();
           const activityRef = doc(db, "activities", documentId);
@@ -262,8 +238,14 @@ const EditActivity = ({route,navigation}) => {
     </View>
     )}
     <View style={styles.buttonsContainer}>
-      <Button color="red" title="Cancel" onPress={handleCancel}/>
-      <Button title="Save" onPress={() =>handleSave(activityName,duration,date)}/>
+      <PressableButton customStyle={styles.cancelButton} onPressFunction={handleCancel}>
+        <Text style={styles.buttonText}>Cancel</Text>
+      </PressableButton>
+      
+      <PressableButton customStyle={styles.saveButton} onPressFunction={() =>handleSave(activityName,duration,date)}>
+        <Text style={styles.buttonText}>Save</Text>
+      </PressableButton>
+      
     </View>
     </View>
   )
@@ -284,7 +266,7 @@ const styles = StyleSheet.create({
       buttonsContainer: { 
         flexDirection: "row" ,
         justifyContent: 'space-between',
-        width:200
+        width:280
     }, 
      label: {
         fontSize: 14, 
@@ -304,7 +286,19 @@ const styles = StyleSheet.create({
         fontSize:14,
         color:colors.primary,
         fontWeight:"bold"
-      }
+      },
+      buttonText:{
+        fontSize:18,
+        color:"white"
+      },
+      cancelButton:{
+        backgroundColor: "#DB7093",
+        
+      },
+      saveButton:{
+        backgroundColor:colors.primary,
+      },
+
         
         
 })

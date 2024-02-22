@@ -3,6 +3,7 @@ import React from 'react'
 import { FontAwesome } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { colors } from "../StylesHelper";
+import PressableButton from './PressableButton';
 
 const BottomTab = ({navigation}) => {
 
@@ -24,16 +25,24 @@ const BottomTab = ({navigation}) => {
 
   return (
     <View style={styles.buttonContainer}>
-      <TouchableOpacity style={styles.iconButton} onPress={handleAll}>
+      {/* <TouchableOpacity style={styles.iconButton} onPress={handleAll}>
           <FontAwesome name="dollar" size={24} color={allActivitiesColor} />
           <Text style={[styles.buttonText,{ color: allActivitiesColor }]}>All Activities</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+      <PressableButton customStyle={styles.iconButton} onPressFunction={handleAll}>
+        <FontAwesome name="dollar" size={24} color={allActivitiesColor} />
+        <Text style={[styles.buttonText,{ color: allActivitiesColor }]}>All Activities</Text>
+      </PressableButton>
         
-        <TouchableOpacity style={styles.iconButton} onPress={handleSpecial}>
+      <PressableButton customStyle={styles.iconButton} onPressFunction={handleSpecial}>
+        <AntDesign name="exclamation" size={24} color={specialActivitiesColor} />
+        <Text style={[styles.buttonText,{ color: specialActivitiesColor }]}>Special Activities</Text>
+      </PressableButton>
+        {/* <TouchableOpacity style={styles.iconButton} onPress={handleSpecial}>
           <AntDesign name="exclamation" size={24} color={specialActivitiesColor} />
           <Text style={[styles.buttonText,{ color: specialActivitiesColor }]}>Special Activities</Text>
         </TouchableOpacity>
-        
+         */}
       </View>
   )
 }
@@ -46,14 +55,14 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         alignItems: 'center',
         backgroundColor: colors.primary,
-        paddingBottom: 40, 
+        paddingBottom: 50, 
       },
       iconButton: {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         flex: 1,
-        marginTop: 10,
+        marginTop: 20,
       },
       buttonText: {
         fontSize: 13,
