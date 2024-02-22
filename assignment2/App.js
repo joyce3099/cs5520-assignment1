@@ -7,7 +7,6 @@ import AllActivities from './Screens/AllActivities';
 import SpecialActivities from './Screens/SpecialActivities';
 import AddActivity from './Screens/AddActivity';
 import EditActivity from "./Screens/EditActivity"
-import { ActivitiesProvider } from './components/ActivitiesContext';
 import { colors } from "./StylesHelper";
 
 
@@ -15,7 +14,6 @@ const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <ActivitiesProvider>
     <NavigationContainer>
    
      <Stack.Navigator 
@@ -63,7 +61,7 @@ export default function App() {
       
       </Stack.Navigator>
     </NavigationContainer>
-    </ActivitiesProvider>
+
   );
 }
 
