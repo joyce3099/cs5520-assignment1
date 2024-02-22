@@ -1,9 +1,10 @@
-import { Button,StyleSheet, View } from 'react-native'
+import { Button,Pressable,StyleSheet, View } from 'react-native'
 import React, { useEffect,useState } from 'react'
 import ActivityList from '../components/ActivityList';
 import BottomTab from '../components/BottomTab';
 import { collection,onSnapshot } from "firebase/firestore";
-import {database} from "../firebase-files/firebaseSetup"
+import {database} from "../firebase-files/firebaseSetup";
+import { FontAwesome6 } from '@expo/vector-icons';
 
 const SpecialActivities = ({navigation}) => {
 
@@ -33,7 +34,9 @@ const SpecialActivities = ({navigation}) => {
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Button title="+" color="white" onPress={addHandler}/>
+        <Pressable style={styles.addButton} onPress={addHandler}>
+          <FontAwesome6 name="add" size={24} color="white" />
+        </Pressable>
       ),
     });
   }, [navigation]); 
@@ -66,5 +69,8 @@ const styles = StyleSheet.create({
       bottomTabContainer:{
         flex:0.7,
         // paddingBottom: -100, 
-      }
+      },
+      addButton:{
+        marginRight:30
+      } 
 })

@@ -35,7 +35,7 @@ const AllActivities = ({navigation}) => {
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        // <Button title="+" color="white" onPress={addHandler}/>
+        
         <Pressable style={styles.addButton} onPress={addHandler}>
           <FontAwesome6 name="add" size={24} color="white" />
         </Pressable>
@@ -73,7 +73,5 @@ const styles = StyleSheet.create({
   },
   addButton:{
     marginRight:30
-  }
-
-  
+  } 
 })
