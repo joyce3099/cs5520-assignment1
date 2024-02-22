@@ -11,7 +11,7 @@ const ActivityItem = ({activityId,activityName,date,duration,isSpecial,navigatio
 
   return (
     <View >
-    <Pressable style={() => {return [styles.container];}}
+    <Pressable style={({ pressed }) => {return [styles.container,, pressed && styles.pressed];}}
       onPress={activityPressHandler}>
       <Text style={styles.activityContainer}>{activityName}</Text>
       {isSpecial && <Entypo style={styles.specialSign} name="warning" size={24} color="black" />}
@@ -70,5 +70,8 @@ const styles = StyleSheet.create({
     text:{
         fontWeight:'bold',
         color:colors.primary
-    }
+    },
+    pressed: {
+      opacity: 0.5,
+    },
 })

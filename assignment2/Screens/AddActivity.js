@@ -43,7 +43,8 @@ const AddActivity = ({navigation}) => {
         }
 
         const durationNumber = parseFloat(duration);
-        if (isNaN(durationNumber) || durationNumber <= 0) {
+        const isValidNumber = /^\d+(\.\d+)?$/.test(duration);
+        if (!isValidNumber || durationNumber <= 0) {
             Alert.alert("Validation", "Please enter a valid duration (positive number).");
             return false;     
         }

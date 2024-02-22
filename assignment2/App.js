@@ -9,7 +9,6 @@ import AddActivity from './Screens/AddActivity';
 import EditActivity from "./Screens/EditActivity"
 import { colors } from "./StylesHelper";
 
-
 const Stack = createStackNavigator();
 
 export default function App() {

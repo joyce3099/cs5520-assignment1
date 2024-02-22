@@ -40,6 +40,8 @@ const EditActivity = ({route,navigation}) => {
 
     const [isChecked, setChecked] = useState(false);
 
+    // const [initialActivity, setInitialActivity] = useState(null);
+
     function deleteHandler(deletedId){
       Alert.alert(
         "Delete",
@@ -90,6 +92,14 @@ const EditActivity = ({route,navigation}) => {
             const dateStr = docSnap.data().date;
             const parsedDate = moment(dateStr, "ddd, MMM D, YYYY").toDate();
 
+            // set initial activity to compare
+            // setInitialActivity({
+            //   activityName: docSnap.data.activityName,
+            //   duration: docSnap.data.duration,
+            //   date: docSnap.data.date,
+            //   isSpecial: docSnap.data.isSpecial
+            // });
+
             if (moment(parsedDate).isValid()) {
               setDate(parsedDate);
               setIsDateSelected(true);
@@ -113,7 +123,8 @@ const EditActivity = ({route,navigation}) => {
         }
 
         const durationNumber = parseFloat(duration);
-        if (isNaN(durationNumber) || durationNumber <= 0) {
+        const isValidNumber = /^\d+(\.\d+)?$/.test(duration);
+        if (!isValidNumber || durationNumber <= 0) {
             Alert.alert("Validation", "Please enter a valid duration (positive number).");
             return false;     
         }
@@ -135,6 +146,22 @@ const EditActivity = ({route,navigation}) => {
         const isValid = validateInput();
 
         if (isValid){
+          // const currentDate = date.toLocaleDateString('en-US', {
+          //   weekday: 'short', 
+          //   year: 'numeric', 
+          //   month: 'short', 
+          //   day: 'numeric'
+          // });
+      
+          // if (activityName === initialActivity.activityName &&
+          //     duration === initialActivity.duration &&
+          //     currentDate === initialActivity.date &&
+          //     isSpecial === initialActivity.isSpecial
+          //     ) {
+          //   Alert.alert("Notice", "No changes were made.");
+          //   return;
+          // }
+
           const {documentId} = route.params;
           const db = getFirestore();
           const activityRef = doc(db, "activities", documentId);
@@ -166,7 +193,7 @@ const EditActivity = ({route,navigation}) => {
                 text:"Yes",
                 onPress: async () => {
                   await updateDoc(activityRef,updatedActivity);
-                  Alert.alert("Success", "Activity updated successfully");
+                  // Alert.alert("Success", "Activity updated successfully");
                   setActivityName(null);
                   setDuration('')
                   setIsDateSelected(false)
