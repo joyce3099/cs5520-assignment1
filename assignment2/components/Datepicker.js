@@ -4,21 +4,30 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 const Datepicker = ({ date, setDate, show, setShow, isDateSelected,setIsDateSelected}) => {
 
-    // set the date picker 
+  const handlePress = () => {
+    setShow(true);
+  };
+
+  // set the date picker 
     const onChange = (event,selectedDate) => {
+        const currentDate = selectedDate || date; 
         setShow(Platform.OS === 'ios');
+
         if (selectedDate) {
-            setDate(selectedDate);
+            setDate(currentDate);
             setIsDateSelected(true); 
             setShow(false);
         } else {
+            setDate(new Date());
             setShow(false);
+            // setIsDateSelected(false); 
         }
     }
 
     const showDatepicker = () => {
-        setShow(true);
-      };
+      setShow(true);
+    };
+  
     
   return (
     <View>

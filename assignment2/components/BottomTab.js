@@ -25,10 +25,6 @@ const BottomTab = ({navigation}) => {
 
   return (
     <View style={styles.buttonContainer}>
-      {/* <TouchableOpacity style={styles.iconButton} onPress={handleAll}>
-          <FontAwesome name="dollar" size={24} color={allActivitiesColor} />
-          <Text style={[styles.buttonText,{ color: allActivitiesColor }]}>All Activities</Text>
-        </TouchableOpacity> */}
       <PressableButton customStyle={styles.iconButton} onPressFunction={handleAll}>
         <FontAwesome name="dollar" size={24} color={allActivitiesColor} />
         <Text style={[styles.buttonText,{ color: allActivitiesColor }]}>All Activities</Text>
@@ -38,11 +34,6 @@ const BottomTab = ({navigation}) => {
         <AntDesign name="exclamation" size={24} color={specialActivitiesColor} />
         <Text style={[styles.buttonText,{ color: specialActivitiesColor }]}>Special Activities</Text>
       </PressableButton>
-        {/* <TouchableOpacity style={styles.iconButton} onPress={handleSpecial}>
-          <AntDesign name="exclamation" size={24} color={specialActivitiesColor} />
-          <Text style={[styles.buttonText,{ color: specialActivitiesColor }]}>Special Activities</Text>
-        </TouchableOpacity>
-         */}
       </View>
   )
 }

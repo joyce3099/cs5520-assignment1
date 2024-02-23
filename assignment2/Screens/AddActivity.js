@@ -27,7 +27,7 @@ const AddActivity = ({navigation}) => {
     const [duration,setDuration] = useState('')
     const [durationError,setDurationError] = useState(false);
 
-    const [date, setDate] = useState(new Date());
+    const [date, setDate] = useState(null);
     const [show, setShow] = useState(false);
     const [isDateSelected, setIsDateSelected] = useState(false);
 
@@ -100,7 +100,7 @@ const AddActivity = ({navigation}) => {
     <View style={styles.container}>
     <View style={styles.chosenAreaContainer}>
       <Text style={styles.label}>Activity *</Text>
-      <DropDownPicker
+      <DropDownPicker style={styles.dropDownPicker}
       placeholder='Select An Activity'
       open={open}
       value={activityName}
@@ -108,8 +108,11 @@ const AddActivity = ({navigation}) => {
       setOpen={setOpen}
       setValue={setActivityName}
       setItems={setItems}
+      placeholderStyle={{ color: colors.primary }} 
+      labelStyle={{color: colors.primary}}
+      listItemLabelStyle={{ color: colors.primary }}
     />
-    <Input style={styles.chosenAreaContainer}
+    <Input 
       itemText="Duration (min) *"
       item={duration}
       setItem={setDuration}
@@ -144,6 +147,16 @@ const styles = StyleSheet.create({
       alignItems:"center",
       justifyContent:"space-around",
       
+    },
+    dropDownPicker:{
+      borderWidth:2,
+      borderColor: colors.primary,
+      borderRadius: 5,
+      backgroundColor:"#E6E6FA",
+      height: 35,
+      fontSize: 20, 
+      color:colors.primary,
+      marginBottom:10,
     },
       chosenAreaContainer:{
         width:"85%"

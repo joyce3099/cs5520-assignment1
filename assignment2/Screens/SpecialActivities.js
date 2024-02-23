@@ -5,6 +5,7 @@ import BottomTab from '../components/BottomTab';
 import { collection,onSnapshot } from "firebase/firestore";
 import {database} from "../firebase-files/firebaseSetup";
 import { FontAwesome6 } from '@expo/vector-icons';
+import PressableButton from '../components/PressableButton';
 
 const SpecialActivities = ({navigation}) => {
 
@@ -34,9 +35,9 @@ const SpecialActivities = ({navigation}) => {
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Pressable style={styles.addButton} onPress={addHandler}>
+        <PressableButton onPressFunction={addHandler}>
           <FontAwesome6 name="add" size={24} color="white" />
-        </Pressable>
+        </PressableButton>
       ),
     });
   }, [navigation]); 
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
         flex:0.7,
         // paddingBottom: -100, 
       },
-      addButton:{
-        marginRight:30
-      } 
+      // addButton:{
+      //   marginRight:30
+      // } 
 })

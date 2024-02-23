@@ -199,7 +199,7 @@ const EditActivity = ({route,navigation}) => {
     <View style={styles.container}>
     <View style={styles.chosenAreaContainer}>
       <Text style={styles.label}>Activity *</Text>
-      <DropDownPicker
+      <DropDownPicker style={styles.dropDownPicker}
       placeholder={activityName}
       open={open}
       value={activityName}
@@ -207,6 +207,9 @@ const EditActivity = ({route,navigation}) => {
       setOpen={setOpen}
       setValue={setActivityName}
       setItems={setItems}
+      placeholderStyle={{ color: colors.primary }} 
+      labelStyle={{color: colors.primary}}
+      listItemLabelStyle={{ color: colors.primary }}
     />
     <Input style={styles.chosenAreaContainer}
       itemText="Duration (min) *"
@@ -297,6 +300,17 @@ const styles = StyleSheet.create({
       },
       saveButton:{
         backgroundColor:colors.primary,
+      },
+
+      dropDownPicker:{
+        borderWidth:2,
+        borderColor: colors.primary,
+        borderRadius: 5,
+        backgroundColor:"#E6E6FA",
+        height: 35,
+        fontSize: 20, 
+        color:colors.primary,
+        marginBottom:10,
       },
 
         

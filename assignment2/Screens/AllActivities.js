@@ -36,9 +36,9 @@ const AllActivities = ({navigation}) => {
     navigation.setOptions({
       headerRight: () => (
         
-        <Pressable style={styles.addButton} onPress={addHandler}>
+        <PressableButton onPressFunction={addHandler}>
           <FontAwesome6 name="add" size={24} color="white" />
-        </Pressable>
+        </PressableButton>
       ),
     });
   }, [navigation]); 
@@ -71,7 +71,5 @@ const styles = StyleSheet.create({
   bottomTabContainer:{
     flex:0.7,
   },
-  addButton:{
-    marginRight:30
-  } 
+  
 })

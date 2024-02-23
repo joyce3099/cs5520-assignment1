@@ -71,11 +71,11 @@ const styles = StyleSheet.create({
   buttonsContainer: 
     { flexDirection: "row" ,
     justifyContent: 'space-around',
-    width:300
+    width:300,
+    marginTop:50
   },
   resetButton:{
     backgroundColor: "#DB7093",
-    
   },
   startButton:{
     backgroundColor:colors.primary,

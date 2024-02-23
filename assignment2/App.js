@@ -18,6 +18,7 @@ export default function App() {
      <Stack.Navigator 
        screenOptions={{
           cardStyle: { backgroundColor: '#E6E6FA' }, 
+          headerBackTitle: null,
         }}>
       <Stack.Screen 
         options={
@@ -29,7 +30,8 @@ export default function App() {
         options={
           {headerStyle:
         {backgroundColor:colors.primary},
-        headerTintColor:colors.white}}
+        headerTintColor:colors.white,
+        headerLeft: () => null}}
         name = "All Activities"
         component={AllActivities}
       />
@@ -37,7 +39,8 @@ export default function App() {
         options={
           {headerStyle:
         {backgroundColor:colors.primary},
-        headerTintColor:colors.white}}
+        headerTintColor:colors.white,
+        headerLeft: () => null}}
         name = "Special Activities"
         component={SpecialActivities}
       />
