@@ -29,7 +29,7 @@ const SpecialActivities = ({navigation}) => {
 
 // navigate to the add activity page
   function addHandler(){
-    navigation.navigate("Add An Activity");
+    navigation.navigate("Add An Activity",{origin: 'SpecialActivities'});
   }
 
   useEffect(() => {

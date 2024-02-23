@@ -10,7 +10,9 @@ import { collection,onSnapshot } from "firebase/firestore";
 import {database} from "../firebase-files/firebaseSetup"
 import PressableButton from '../components/PressableButton';
 
-const AddActivity = ({navigation}) => {
+const AddActivity = ({navigation,route}) => {
+  // console.log(route.params)
+  const {origin} = route.params
 
     const [open, setOpen] = useState(false);
     const [activityName, setActivityName] = useState(null);
@@ -32,8 +34,6 @@ const AddActivity = ({navigation}) => {
     const [isDateSelected, setIsDateSelected] = useState(false);
 
     const [activities, setActivities] = useState([])
-
-    // const { activities, setActivities } = useActivities();
     
 
     // validate if the user input is valid and send alerts to user
@@ -59,8 +59,13 @@ const AddActivity = ({navigation}) => {
 
     }
 
+    // allow user to go back to the origin page after pressing the cancel button
     const handleCancel = () =>{
-        navigation.navigate('All Activities');
+        if (origin === 'AllActivities') {
+          navigation.navigate('All Activities');
+      } else if (origin === 'SpecialActivities') {
+          navigation.navigate('Special Activities');
+      }
     }
 
     // save the user inputs to create a new activity object and save it to the activities array
@@ -92,7 +97,12 @@ const AddActivity = ({navigation}) => {
         setDuration('')
         setIsDateSelected(false)
 
-        navigation.navigate('All Activities');
+        // allow user to go back to the origin page after pressing the save button
+        if (origin === 'AllActivities') {
+          navigation.navigate('All Activities');
+        } else if (origin === 'SpecialActivities') {
+          navigation.navigate('Special Activities');
+        }
         }
     }
 

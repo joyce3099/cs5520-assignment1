@@ -15,10 +15,8 @@ import Checkbox from 'expo-checkbox';
 
 const EditActivity = ({route,navigation}) => {
     const {documentId,origin} = route.params;
-    console.log(route.params.origin)
 
     const db = getFirestore();
-
     const [activity, setActivity] = useState(null);
 
     const [open, setOpen] = useState(false);
@@ -42,8 +40,7 @@ const EditActivity = ({route,navigation}) => {
 
     const [isChecked, setChecked] = useState(false);
 
-    // const [initialActivity, setInitialActivity] = useState(null);
-
+    // allow user to delete the activity from database and send alert
     function deleteHandler(deletedId){
       Alert.alert(
         "Delete",
@@ -58,6 +55,7 @@ const EditActivity = ({route,navigation}) => {
             text:"Yes",
             onPress: () => {
               deleteFromDB(deletedId).then(()=>{
+                // allow user to go back to the origin page after deleting the item
                 if (origin === 'AllActivities') {
                   navigation.navigate('All Activities');
               } else if (origin === 'SpecialActivities') {
@@ -83,12 +81,15 @@ const EditActivity = ({route,navigation}) => {
       });
     }); 
 
+    // fetch the activity item from database with unique documentId
     useEffect(()=>{
       const fetchActivity = async () => {
         const db = getFirestore();
         const docRef = doc(db, "activities", documentId);
         const docSnap = await getDoc(docRef);
-
+        
+        // if the documentId exists in database, 
+        // then set the Activity with the data in database
         if (docSnap.exists()) {
             console.log("Document data:", docSnap.data());
             setActivity({ id: docSnap.id, ...docSnap.data() });
@@ -134,6 +135,7 @@ const EditActivity = ({route,navigation}) => {
 
     }
 
+    // allow user to go back to the origin page after pressing the cancel button
     const handleCancel = () =>{
         if (origin === 'AllActivities') {
             navigation.navigate('All Activities');
@@ -165,6 +167,8 @@ const EditActivity = ({route,navigation}) => {
             isSpecial
         };
 
+          // send alert to user to confirm if they want to save the changes
+          // and set the values of activity to null 
           Alert.alert(
             "Important",
             "Are you sure you want to save this changes?",
@@ -178,10 +182,11 @@ const EditActivity = ({route,navigation}) => {
                 text:"Yes",
                 onPress: async () => {
                   await updateDoc(activityRef,updatedActivity);
-                  // Alert.alert("Success", "Activity updated successfully");
                   setActivityName(null);
                   setDuration('')
                   setIsDateSelected(false)
+
+                  // allow user to go back to the origin page after pressing the save button
                   if (origin === 'AllActivities') {
                     navigation.navigate('All Activities');
                   } else if (origin === 'SpecialActivities') {
@@ -235,7 +240,6 @@ const EditActivity = ({route,navigation}) => {
         value={isChecked}
         onValueChange={(newValue) => {
         setChecked(newValue);
-        // updateActivityIsSpecial(documentId, !newValue);
       }}
         color={isChecked ? '#4630EB' : undefined}
       />  
@@ -298,7 +302,6 @@ const styles = StyleSheet.create({
       },
       cancelButton:{
         backgroundColor: "#DB7093",
-        
       },
       saveButton:{
         backgroundColor:colors.primary,

@@ -7,7 +7,7 @@ import {database} from "../firebase-files/firebaseSetup"
 import { FontAwesome6 } from '@expo/vector-icons';
 import PressableButton from '../components/PressableButton';
 
-const AllActivities = ({navigation}) => {
+const AllActivities = ({navigation,origin}) => {
 
   const [activities, setActivities] = useState([]);
 
@@ -29,14 +29,14 @@ const AllActivities = ({navigation}) => {
 
   // navigate to the add activity page
   function addHandler(){
-    navigation.navigate("Add An Activity");
+    navigation.navigate("Add An Activity",{origin: 'AllActivities'});
   }
 
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         
-        <PressableButton onPressFunction={addHandler}>
+        <PressableButton onPressFunction={addHandler} origin="AllActivities">
           <FontAwesome6 name="add" size={24} color="white" />
         </PressableButton>
       ),
