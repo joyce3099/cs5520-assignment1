@@ -91,7 +91,7 @@ const EditActivity = ({route,navigation}) => {
         // if the documentId exists in database, 
         // then set the Activity with the data in database
         if (docSnap.exists()) {
-            console.log("Document data:", docSnap.data());
+            // console.log("Document data:", docSnap.data());
             setActivity({ id: docSnap.id, ...docSnap.data() });
             setActivityName(docSnap.data().activityName);
             setDuration(docSnap.data().duration);

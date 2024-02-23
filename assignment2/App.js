@@ -14,7 +14,6 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-   
      <Stack.Navigator 
        screenOptions={{
           cardStyle: { backgroundColor: '#E6E6FA' }, 
