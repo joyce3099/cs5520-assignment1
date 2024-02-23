@@ -109,7 +109,7 @@ const AddActivity = ({navigation}) => {
       setValue={setActivityName}
       setItems={setItems}
       placeholderStyle={{ color: colors.primary }} 
-      labelStyle={{color: colors.primary}}
+      labelStyle={{color: colors.primary,fontSize:18}}
       listItemLabelStyle={{ color: colors.primary }}
     />
     <Input 

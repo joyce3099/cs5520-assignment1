@@ -208,7 +208,7 @@ const EditActivity = ({route,navigation}) => {
       setValue={setActivityName}
       setItems={setItems}
       placeholderStyle={{ color: colors.primary }} 
-      labelStyle={{color: colors.primary}}
+      labelStyle={{color: colors.primary,fontSize:18}}
       listItemLabelStyle={{ color: colors.primary }}
     />
     <Input style={styles.chosenAreaContainer}
@@ -226,6 +226,7 @@ const EditActivity = ({route,navigation}) => {
         setIsDateSelected={setIsDateSelected}
     />
     </View>
+    <View style={styles.lastPartContainer}>
     {activity && activity.isSpecial && (
     <View style={styles.checkboxContainer}>
     <Text style={styles.checkboxText}>This item is marked as special. Select the checkbox if you would like to approve it.</Text>
@@ -249,6 +250,7 @@ const EditActivity = ({route,navigation}) => {
         <Text style={styles.buttonText}>Save</Text>
       </PressableButton>
       
+     </View>
     </View>
     </View>
   )
@@ -261,7 +263,6 @@ const styles = StyleSheet.create({
       flex:1,
       alignItems:"center",
       justifyContent:"space-around",
-      
     },
       chosenAreaContainer:{
         width:"85%"
@@ -280,7 +281,8 @@ const styles = StyleSheet.create({
       checkboxContainer:{
         flexDirection: 'row',
         alignItems: 'center',
-        width:300
+        width:300,
+        marginBottom:20
       },
       checkbox: {
         margin: 8,
@@ -301,7 +303,6 @@ const styles = StyleSheet.create({
       saveButton:{
         backgroundColor:colors.primary,
       },
-
       dropDownPicker:{
         borderWidth:2,
         borderColor: colors.primary,
