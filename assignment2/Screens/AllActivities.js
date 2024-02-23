@@ -1,4 +1,4 @@
-import { Button, Pressable, StyleSheet, View } from 'react-native'
+import { Pressable, StyleSheet, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import ActivityList from '../components/ActivityList';
 import BottomTab from '../components/BottomTab';
