@@ -1,22 +1,40 @@
-import { Button, StyleSheet, View } from 'react-native'
-import React, { useEffect } from 'react'
-import { useActivities } from '../components/ActivitiesContext';
+import { Pressable, StyleSheet, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import ActivityList from '../components/ActivityList';
 import BottomTab from '../components/BottomTab';
+import { collection,onSnapshot } from "firebase/firestore";
+import {database} from "../firebase-files/firebaseSetup"
+import { FontAwesome6 } from '@expo/vector-icons';
+import PressableButton from '../components/PressableButton';
 
-const AllActivities = ({navigation}) => {
+const AllActivities = ({navigation,origin}) => {
 
-  const { activities } = useActivities();
+  const [activities, setActivities] = useState([]);
+
+  useEffect(()=>{
+    // set up a listener to get realtime data from firestore - only after the first render
+    onSnapshot(collection(database,"activities"),(querySnapshot)=>{
+      let newArray = []
+      // look through this querySnapshot
+      querySnapshot.forEach((doc) => {
+        newArray.push({...doc.data(),id:doc.id});
+    });
+    setActivities(newArray);
+    })
+  },[])
 
   // navigate to the add activity page
   function addHandler(){
-    navigation.navigate("Add An Activity");
+    navigation.navigate("Add An Activity",{origin: 'AllActivities'});
   }
 
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Button title="Add" color="orange" onPress={addHandler}/>
+        
+        <PressableButton onPressFunction={addHandler} origin="AllActivities">
+          <FontAwesome6 name="add" size={24} color="white" />
+        </PressableButton>
       ),
     });
   }, [navigation]); 
@@ -24,7 +42,7 @@ const AllActivities = ({navigation}) => {
   return (
     <View style={styles.container}>
      <View style={styles.activityContainer}>
-      <ActivityList activities={activities} filterFn={() => true} />
+      <ActivityList activities={activities} filterFn={() => true} navigation={navigation} origin="AllActivities"/>
       </View>
       <View style={styles.bottomTabContainer}>
       <BottomTab style={styles.bottomTabContainer} navigation={navigation}/>
@@ -48,7 +66,6 @@ const styles = StyleSheet.create({
 
   bottomTabContainer:{
     flex:0.7,
-  }
-
+  },
   
 })

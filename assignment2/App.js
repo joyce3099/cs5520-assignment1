@@ -6,19 +6,18 @@ import Start from './Screens/Start';
 import AllActivities from './Screens/AllActivities';
 import SpecialActivities from './Screens/SpecialActivities';
 import AddActivity from './Screens/AddActivity';
-import { ActivitiesProvider } from './components/ActivitiesContext';
+import EditActivity from "./Screens/EditActivity"
 import { colors } from "./StylesHelper";
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <ActivitiesProvider>
     <NavigationContainer>
-   
      <Stack.Navigator 
        screenOptions={{
           cardStyle: { backgroundColor: '#E6E6FA' }, 
+          headerBackTitle: null,
         }}>
       <Stack.Screen 
         options={
@@ -30,7 +29,8 @@ export default function App() {
         options={
           {headerStyle:
         {backgroundColor:colors.primary},
-        headerTintColor:colors.white}}
+        headerTintColor:colors.white,
+        headerLeft: () => null}}
         name = "All Activities"
         component={AllActivities}
       />
@@ -38,7 +38,8 @@ export default function App() {
         options={
           {headerStyle:
         {backgroundColor:colors.primary},
-        headerTintColor:colors.white}}
+        headerTintColor:colors.white,
+        headerLeft: () => null}}
         name = "Special Activities"
         component={SpecialActivities}
       />
@@ -50,10 +51,18 @@ export default function App() {
         name = "Add An Activity"
         component={AddActivity}
       />
+      <Stack.Screen 
+        options={
+          {headerStyle:
+        {backgroundColor:colors.primary},
+        headerTintColor:colors.white}}
+        name = "Edit"
+        component={EditActivity}
+      />
       
       </Stack.Navigator>
     </NavigationContainer>
-    </ActivitiesProvider>
+
   );
 }
 

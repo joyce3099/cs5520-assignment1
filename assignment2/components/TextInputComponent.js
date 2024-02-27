@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
       borderRadius: 5,
       // width: '100%',
       height: 35,
-      fontSize: 20, 
+      fontSize: 18, 
+      color:colors.primary,
     },
     errorText: {
       color: 'black',

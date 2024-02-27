@@ -1,6 +1,8 @@
-import { Button, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import Input from '../components/Input';
+import PressableButton from '../components/PressableButton';
+import { colors } from '../StylesHelper';
 
 const Start = ({navigation}) => {
   const [email,setEmail] = useState('');
@@ -44,10 +46,15 @@ const Start = ({navigation}) => {
         setItem={setNumber}
         itemError={numberError && 'Please enter a valid phone number'}
       />
-      
       <View style={styles.buttonsContainer}>
-        <Button color="red" title="Reset" onPress={handleReset}/>
-        <Button title="Start" onPress={() =>handleStart(email, number)} disabled={!isUserTyped}/>
+        <PressableButton customStyle={styles.resetButton} onPressFunction={handleReset}>
+          <Text style={styles.buttonText}>Reset</Text>
+        </PressableButton>
+        {/* <Button color="red" title="Reset" onPress={handleReset}/> */}
+        <PressableButton customStyle={styles.startButton} onPressFunction={() =>handleStart(email, number)} disableEvent={!isUserTyped}>
+          <Text style={styles.buttonText}>Start</Text>
+        </PressableButton>
+        {/* <Button title="Start" onPress={() =>handleStart(email, number)} disabled={!isUserTyped}/> */}
       </View>
     </View>
   )
@@ -64,6 +71,18 @@ const styles = StyleSheet.create({
   buttonsContainer: 
     { flexDirection: "row" ,
     justifyContent: 'space-around',
-    width:300
+    width:300,
+    marginTop:50
+  },
+  resetButton:{
+    backgroundColor: "#DB7093",
+  },
+  startButton:{
+    backgroundColor:colors.primary,
+  
+  },
+  buttonText:{
+    fontSize:18,
+    color:"white"
   }
 })

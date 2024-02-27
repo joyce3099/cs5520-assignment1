@@ -1,12 +1,15 @@
 import { Platform,StyleSheet, Text, TextInput, View } from 'react-native'
 import React, { useState } from 'react'
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { colors } from '../StylesHelper';
 
 const Datepicker = ({ date, setDate, show, setShow, isDateSelected,setIsDateSelected}) => {
 
-    // set the date picker 
+  // set the date picker 
     const onChange = (event,selectedDate) => {
+
         setShow(Platform.OS === 'ios');
+
         if (selectedDate) {
             setDate(selectedDate);
             setIsDateSelected(true); 
@@ -17,8 +20,18 @@ const Datepicker = ({ date, setDate, show, setShow, isDateSelected,setIsDateSele
     }
 
     const showDatepicker = () => {
-        setShow(true);
-      };
+      setShow(true);
+    };
+
+    const handlePress = () => {
+      setShow(!show);
+      if (!isDateSelected) {
+        const currentDate = new Date();
+        setDate(currentDate);
+        setIsDateSelected(true);
+      }
+    };
+  
     
   return (
     <View>
@@ -30,8 +43,8 @@ const Datepicker = ({ date, setDate, show, setShow, isDateSelected,setIsDateSele
         month: 'short', 
         day: 'numeric', 
       }) : ''}
-        onFocus={showDatepicker} 
         showSoftInputOnFocus={false}
+        onPressIn={handlePress}
       />
       {show && (
         <DateTimePicker
@@ -51,17 +64,18 @@ export default Datepicker
 const styles = StyleSheet.create({
     input: {
         borderWidth:2,
-        borderColor: '#483D8B',
+        borderColor: colors.primary,
         borderRadius: 5,
         width: '100%',
         height: 35,
-        fontSize: 20,
+        fontSize: 18,
         marginBottom: 20, 
+        color:colors.primary
       },
       label: {
         fontSize: 14, 
         marginBottom: 8, 
-        color:"#483D8B",
+        color:colors.primary,
         fontWeight:'bold',
         },
       
