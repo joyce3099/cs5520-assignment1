@@ -14,10 +14,6 @@ const AllActivities = ({navigation,origin}) => {
   useEffect(()=>{
     // set up a listener to get realtime data from firestore - only after the first render
     onSnapshot(collection(database,"activities"),(querySnapshot)=>{
-      if (querySnapshot.empty){
-        Alert.alert("You need to add something");
-        return;
-      }
       let newArray = []
       // look through this querySnapshot
       querySnapshot.forEach((doc) => {
